@@ -33,7 +33,7 @@ export default function ProfileWidget() {
       }}
       onClick={handleMenuOpen}
     >
-      {userStatus?.username[0]?.toUpperCase() || "?"}
+      {userStatus?.username?.[0]?.toUpperCase() || "?"}
       <Menu
         id="profile-menu"
         anchorEl={anchorEl}
