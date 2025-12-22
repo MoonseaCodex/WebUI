@@ -15,18 +15,18 @@ import { useCharacters } from "@/data/fetch/character";
 import { useUserStatus } from "@/data/fetch/auth";
 
 export default function Dashboard() {
-  const { data: characters, isLoading } = useCharacters();
   const { data: userStatus, isLoading: checkingAuth } = useUserStatus();
+  const { data: characters, isLoading } = useCharacters();
   const router = useRouter();
 
   const [createOpen, setCreateOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
 
-  if (isLoading || checkingAuth) return <LoadingOverlay open={true} />;
-  if (!userStatus?.authenticated) {
+  if (!checkingAuth && !userStatus?.authenticated) {
     router.push("/auth/login");
     return null;
   }
+  if (isLoading) return <LoadingOverlay open={true} />;
 
   return (
     <AuthenticationRequired>
