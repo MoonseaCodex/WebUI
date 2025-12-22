@@ -40,8 +40,11 @@ export default function CharacterLevelsPane(props: PropsType) {
   const getClassChips = () => {
     let retVal: React.ReactElement[] = [];
 
-    if (classes) {
-      retVal = character.classes.map((item, index) => {
+    // exclude empty class entries (for example where no class was set on character creation)
+    const playerClasses = classes.filter(c => c.name !== "");
+
+    if (playerClasses) {
+      retVal = playerClasses.map((item, index) => {
         return (
           <ClassChip
             playerClass={item}
