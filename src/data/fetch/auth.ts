@@ -30,7 +30,12 @@ async function getUserStatus() {
       dmHours: r.data.dm_info[0].hours,
     };
     return status;
-  });
+  }).catch((_error) => {
+    const status: Partial<UserStatus> = {
+      authenticated: false,
+    }
+    return status;
+  })
 }
 
 // Logs the user in and updates the user information store
