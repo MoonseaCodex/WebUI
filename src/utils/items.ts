@@ -1,6 +1,12 @@
 import type { Consumable, MagicItem } from "@/types/items";
 import type { Rarity } from "@/types/items";
 
+export const COLOUR_C = "#696969";
+export const COLOUR_UC = "#006400";
+export const COLOUR_R = "#0000FF";
+export const COLOUR_VR = "#4B0082";
+export const COLOUR_L = "#FF8C00";
+
 export function getRarityText(rarity: Rarity) {
   if (rarity === "legendary") return "Legendary";
   if (rarity === "veryrare") return "Very rare";
@@ -11,11 +17,11 @@ export function getRarityText(rarity: Rarity) {
 }
 
 export function getRarityColour(rarity: Rarity) {
-  if (rarity === "legendary") return "#FF8C00";
-  if (rarity === "veryrare") return "#4B0082";
-  if (rarity === "rare") return "#0000FF";
-  if (rarity === "uncommon") return "#006400";
-  if (rarity === "common") return "#696969";
+  if (rarity === "legendary") return COLOUR_L;
+  if (rarity === "veryrare") return COLOUR_VR;
+  if (rarity === "rare") return COLOUR_R;
+  if (rarity === "uncommon") return COLOUR_UC;
+  if (rarity === "common") return COLOUR_C;
   return "#A9A9A9";
 }
 

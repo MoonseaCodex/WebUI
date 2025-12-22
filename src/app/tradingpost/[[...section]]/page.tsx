@@ -14,8 +14,11 @@ import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import TradingPostOffers from "../TradingPostOffers";
 import TradingPostSearch from "../TradingPostSearch";
 import TradingPostItems from "../TradingPostItems";
+import RarityFilter from "@/components/trade/RarityFilter";
 import AuthenticationRequired from "@/components/user/AuthenticationRequired";
 import { useUserStatus } from "@/data/fetch/auth";
+
+import type { Rarity } from "@/types/items";
 
 export default function TradingPostWindow() {
   const { data: userStatus } = useUserStatus();
@@ -23,6 +26,7 @@ export default function TradingPostWindow() {
   const router = useRouter();
 
   const [filter, setFilter] = useState("");
+  const [rarityFilter, setRarityFilter] = useState<Rarity | null>(null);
 
   const tabValue = (section?.[0] as string) ?? "market";
 
@@ -59,6 +63,12 @@ export default function TradingPostWindow() {
                 </InputAdornment>
               ),
             }}
+          />
+
+          <RarityFilter
+            value={rarityFilter}
+            setValue={setRarityFilter}
+            disabled={tabValue !== "market"}
           />
 
           <ButtonGroup>
@@ -100,7 +110,9 @@ export default function TradingPostWindow() {
         >
           {tabValue === "items" && <TradingPostItems />}
           {tabValue === "offers" && <TradingPostOffers />}
-          {tabValue === "market" && <TradingPostSearch filter={filter} />}
+          {tabValue === "market" && (
+            <TradingPostSearch filter={filter} rarity={rarityFilter} />
+          )}
         </Box>
       </Paper>
     </AuthenticationRequired>
