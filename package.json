@@ -25,10 +25,10 @@
     "react-error-boundary": "^5.0.0",
     "react-icons": "^4.12.0",
     "react-router-dom": "^6.30.0",
-    "typescript": "^5.8.2",
+    "typescript": "^5.9.3",
     "use-file-picker": "^1.7.0",
     "web-vitals": "^2.1.4",
-    "zustand": "^4.5.6"
+    "zustand": "^5.0.9"
   },
   "scripts": {
     "dev": "next dev",
@@ -56,10 +56,10 @@
     "@types/react-dom": "^19.0.4",
     "@types/react-router-dom": "^5.3.3",
     "autoprefixer": "^10.4.21",
-    "eslint": "^9.22.0",
+    "eslint": "^9.39.2",
     "eslint-config-next": "15.1.2",
     "postcss": "^8.5.3",
-    "prettier": "^3.5.3",
+    "prettier": "^3.7.4",
     "tailwindcss": "^4.1.4"
   }
 }
