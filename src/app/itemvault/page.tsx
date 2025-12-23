@@ -25,7 +25,8 @@ import ItemSourceDialog from "./ItemSourceDialog";
 import { getSourceText } from "@/utils/format";
 import { raritySortComparitor } from "@/utils/sort";
 
-import type { MagicItem } from "types/items";
+import type { MagicItem, Rarity } from "types/items";
+import RarityFilter from "@/components/trade/RarityFilter";
 
 export default function ItemVault() {
   const router = useRouter();
@@ -34,13 +35,18 @@ export default function ItemVault() {
   const [itemSourceOpen, setItemSourceOpen] = useState(false);
   const [createOpen, setCreateOpen] = useState(false);
   const [filter, setFilter] = useState("");
+  const [rarityFilter, setRarityFilter] = useState<Rarity | null>(null);
   const [advertItem, setAdvertItem] = useState<MagicItem>();
+
   const getFilteredItems = (): MagicItem[] => {
     if (!items) return [];
 
-    const filtered = items.filter((x) =>
-      x.name.toLowerCase().includes(filter.toLowerCase()),
-    );
+    const filtered = items.filter((x) => {
+      return (
+        x.name.toLowerCase().includes(filter.toLowerCase()) &&
+        (x.rarity == rarityFilter || rarityFilter === null)
+      );
+    });
     return filtered;
   };
 
@@ -154,19 +160,11 @@ export default function ItemVault() {
           className="mt-2 mb-1"
         >
           <Typography variant="h5">Item Vault</Typography>
-          <Tooltip title="Search over MSC's crowdsourced data for a module containing a specific item">
-            <Button
-              variant="outlined"
-              size="small"
-              onClick={() => setItemSourceOpen(true)}
-            >
-              Munchkin search
-            </Button>
-          </Tooltip>
+
           <TextField
             label="Search my items"
             size="small"
-            className="basis-1/2 min-w-96"
+            sx={{ width: "25em" }}
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
             slotProps={{
@@ -179,6 +177,17 @@ export default function ItemVault() {
               },
             }}
           />
+          <RarityFilter value={rarityFilter} setValue={setRarityFilter} />
+
+          <Tooltip title="Search over MSC's crowdsourced data for a module containing a specific item">
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={() => setItemSourceOpen(true)}
+            >
+              Munchkin search
+            </Button>
+          </Tooltip>
         </Box>
 
         <ErrorBoundary fallback="Error!">
