@@ -60,6 +60,6 @@
     "eslint-config-next": "15.1.2",
     "postcss": "^8.5.3",
     "prettier": "^3.7.4",
-    "tailwindcss": "^4.1.4"
+    "tailwindcss": "^4.1.18"
   }
 }
