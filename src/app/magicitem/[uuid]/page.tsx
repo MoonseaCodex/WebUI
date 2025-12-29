@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
-import { Container } from "@mui/material";
+import { Container, Box } from "@mui/material";
 
 import useSnackbar from "@/data/store/snackbar";
 import { useMagicItem } from "@/data/fetch/items/magicitems";
@@ -31,17 +31,22 @@ export default function MagicItemDetails() {
   }
 
   return (
-    <Container sx={{ marginTop: "0.4em" }}>
-      <MagicItemInformationPane
-        item={item}
-        editMode={editMode}
-        setEditMode={setEditMode}
-      />
-      <MagicItemControlPane
-        item={item}
-        editMode={editMode}
-        setEditMode={setEditMode}
-      />
+    <Container
+      className="m-2 flex flex-col gap-2"
+      sx={{ height: "calc(100vh - 4em)" }}
+    >
+      <Box>
+        <MagicItemInformationPane
+          item={item}
+          editMode={editMode}
+          setEditMode={setEditMode}
+        />
+        <MagicItemControlPane
+          item={item}
+          editMode={editMode}
+          setEditMode={setEditMode}
+        />
+      </Box>
       <MagicItemHistoryPane item={item} />
     </Container>
   );
