@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Link from "next/link";
+import NextLink from "next/link";
 
 import { Box, Paper, Typography, Divider } from "@mui/material";
+import { Link as MUILink } from "@mui/material";
 
 import { Rarity, type MagicItem } from "@/types/items";
 import RarityWidget from "@/components/items/widgets/RarityWidget";
@@ -39,7 +40,7 @@ export default function MagicItemInformationPane(props: PropsType) {
   };
 
   return (
-    <Paper className="w-full flex flex-col rounded-md px-2">
+    <Paper className="w-full flex flex-col px-2" elevation={3}>
       <Box className="flex gap-2">
         <Typography fontWeight={600}>Name:</Typography>
         <Typography>{getNameText()}</Typography>
@@ -60,25 +61,42 @@ export default function MagicItemInformationPane(props: PropsType) {
       </Box>
       <Box className="flex gap-2">
         <Typography fontWeight={600}>Owner:</Typography>
-        <Link href={`/character/${item.owner_uuid}`}>{item.owner_name}</Link>
+        <NextLink href={`/character/${item.owner_uuid}`}>
+          <MUILink variant="body1" underline="always">
+            {item.owner_name}
+          </MUILink>
+        </NextLink>
       </Box>
-      <Box className="flex gap-2">
-        <Typography fontWeight={600}>Reference URL:</Typography>
-        <Link href={url}>{url}</Link>
-      </Box>
+      {url !== "" && (
+        <Box className="flex gap-2">
+          <Typography fontWeight={600}>Reference URL:</Typography>
+          <NextLink href={url}>
+            <MUILink variant="body1" underline="always">
+              {url}
+            </MUILink>
+          </NextLink>
+        </Box>
+      )}
 
       <Divider className="py-1" />
+      <Box className="flex flex-col gap-2 mb-2">
+        {description !== "" && (
+          <React.Fragment>
+            <Typography fontWeight={600}>Item Description:</Typography>
+            <Typography fontStyle={"italic"} variant="body2">
+              {description}
+            </Typography>
+          </React.Fragment>
+        )}
 
-      <Box className="flex flex-col gap-2">
-        <Typography fontWeight={600}>Item Description:</Typography>
-        <Typography fontStyle={"italic"} variant="body2">
-          {description}
-        </Typography>
-
-        <Typography fontWeight={600}>Flavour text:</Typography>
-        <Typography variant="body2" fontStyle={"italic"}>
-          {flavour}
-        </Typography>
+        {flavour !== "" && (
+          <React.Fragment>
+            <Typography fontWeight={600}>Flavour text:</Typography>
+            <Typography variant="body2" fontStyle={"italic"}>
+              {flavour}
+            </Typography>
+          </React.Fragment>
+        )}
       </Box>
     </Paper>
   );
