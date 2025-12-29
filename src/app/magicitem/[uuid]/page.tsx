@@ -35,7 +35,7 @@ export default function MagicItemDetails() {
       className="m-2 flex flex-col gap-2"
       sx={{ height: "calc(100vh - 4em)" }}
     >
-      <Box>
+      <Box className="flex flex-row border rounded-md">
         <MagicItemInformationPane
           item={item}
           editMode={editMode}
@@ -45,6 +45,7 @@ export default function MagicItemDetails() {
           item={item}
           editMode={editMode}
           setEditMode={setEditMode}
+          orientation="vertical"
         />
       </Box>
       <MagicItemHistoryPane item={item} />

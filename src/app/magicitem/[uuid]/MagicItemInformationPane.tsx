@@ -40,7 +40,7 @@ export default function MagicItemInformationPane(props: PropsType) {
   };
 
   return (
-    <Paper className="w-full flex flex-col rounded-md px-2">
+    <Paper className="w-full flex flex-col px-2" elevation={3}>
       <Box className="flex gap-2">
         <Typography fontWeight={600}>Name:</Typography>
         <Typography>{getNameText()}</Typography>

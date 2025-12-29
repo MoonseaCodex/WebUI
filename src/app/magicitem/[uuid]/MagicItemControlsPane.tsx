@@ -5,8 +5,6 @@ import { Box, IconButton, Tooltip } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import SaveIcon from "@mui/icons-material/Save";
 
 import useSnackbar from "@/data/store/snackbar";
 import CreateAdvertDialog from "@/components/trade/CreateAdvertDialog";
@@ -15,15 +13,16 @@ import DeleteConfirm from "@/components/items/widgets/DeleteConfirm";
 import type { MagicItem } from "@/types/items";
 
 type PropsType = {
-  editMode: boolean;
-  setEditMode: (x: boolean) => void;
+  editMode?: boolean;
+  setEditMode?: (x: boolean) => void;
 
+  orientation?: "horizontal" | "vertical";
   item: MagicItem;
 };
 
 export default function MagicItemControlPane(props: PropsType) {
+  const { orientation = "horizontal" } = props;
   const { uuid, equipped, name, editable } = props.item;
-  const { editMode, setEditMode } = props;
 
   const snackbar = useSnackbar((s) => s.displayMessage);
 
@@ -34,9 +33,7 @@ export default function MagicItemControlPane(props: PropsType) {
     navigator.clipboard.writeText(window.location.href);
     snackbar("Copied character link to clipboard");
   };
-  const handleEdit = () => {
-    setEditMode(!editMode);
-  };
+
   const handleDelete = () => {
     if (equipped) return;
     setShowDelete(true);
@@ -50,12 +47,10 @@ export default function MagicItemControlPane(props: PropsType) {
     <Box
       sx={{
         display: "flex",
-        flex: "row wrap",
+        flexDirection: orientation === "horizontal" ? "row" : "column",
         alignItems: "center",
-        width: "100%",
         justifyContent: "space-around",
         background: "#AAAAAA70",
-        borderRadius: "0px 0px 8px 8px",
       }}
     >
       <Tooltip title="Copy item link">
@@ -65,14 +60,6 @@ export default function MagicItemControlPane(props: PropsType) {
       </Tooltip>
       {editable && (
         <React.Fragment>
-          <Tooltip title={editMode ? "Save changes" : "Edit item"}>
-            <IconButton onClick={handleEdit}>
-              {(editMode && <SaveIcon fontSize="small" />) || (
-                <EditIcon fontSize="small" />
-              )}
-            </IconButton>
-          </Tooltip>
-
           <Tooltip
             title={
               equipped ? "Cannot trade equipped items" : "Offer item for trade"
